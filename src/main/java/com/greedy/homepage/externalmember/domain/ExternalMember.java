@@ -37,12 +37,12 @@ public class ExternalMember extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ExternalMemberRole activityType;
+    private ExternalMemberRole externalMemberRole;
 
     @Builder
-    public ExternalMember(String name, String githubUrl, ExternalMemberRole activityType) {
+    public ExternalMember(String name, String githubUrl, ExternalMemberRole externalMemberRole) {
         this.name = name;
         this.githubUrl = githubUrl;
-        this.activityType = activityType;
+        this.externalMemberRole = externalMemberRole;
     }
 }
