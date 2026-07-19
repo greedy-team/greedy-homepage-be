@@ -1,21 +1,30 @@
+HELP.md
 .gradle
-**/build/
-!**/src/**/build/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# Ignore Gradle GUI config
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Gradle ###
 gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Avoid ignore Gradle wrappper properties
-!gradle-wrapper.properties
-
-# Cache of project
 .gradletasknamecache
-
-# Eclipse Gradle plugin generated files
-# Eclipse Core
 .project
-# JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+### Application secrets ###
+src/main/resources/application-local.yml
