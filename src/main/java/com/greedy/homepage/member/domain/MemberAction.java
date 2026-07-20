@@ -24,10 +24,10 @@ import org.hibernate.annotations.SQLRestriction;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at IS NULL")
-@SQLDelete(sql = "UPDATE member_activity SET deleted_at = NOW() WHERE id = ?")
+@SQLDelete(sql = "UPDATE member_action SET deleted_at = NOW() WHERE id = ?")
 @Entity
-@Table(name = "member_activity")
-public class MemberActivity extends BaseEntity {
+@Table(name = "member_action")
+public class MemberAction extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public class MemberActivity extends BaseEntity {
     private Generation generation;
 
     @Builder
-    public MemberActivity(Member member, MemberRole memberRole, Generation generation) {
+    public MemberAction(Member member, MemberRole memberRole, Generation generation) {
         this.member = member;
         this.memberRole = memberRole;
         this.generation = generation;
