@@ -1,7 +1,7 @@
 package com.greedy.homepage.project.domain;
 
 import com.greedy.homepage.common.domain.BaseEntity;
-import com.greedy.homepage.externalmember.domain.ExternalMember;
+import com.greedy.homepage.member.domain.ExternalMember;
 import com.greedy.homepage.member.domain.Member;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import jakarta.persistence.Column;
