@@ -1,4 +1,4 @@
-package com.greedy.homepage.externalmember.domain.enums;
+package com.greedy.homepage.member.domain.enums;
 
 public enum ExternalMemberRole {
     REVIEWER,
