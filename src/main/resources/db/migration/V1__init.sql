@@ -31,7 +31,7 @@ CREATE TABLE member_department
     CONSTRAINT fk_member_department_member FOREIGN KEY (member_id) REFERENCES member (id)
 );
 
-CREATE TABLE member_activity
+CREATE TABLE member_action
 (
     id            BIGINT      NOT NULL AUTO_INCREMENT,
     member_id     BIGINT      NOT NULL,
@@ -41,8 +41,8 @@ CREATE TABLE member_activity
     updated_at    DATETIME,
     deleted_at    DATETIME,
     PRIMARY KEY (id),
-    CONSTRAINT fk_member_activity_member     FOREIGN KEY (member_id)     REFERENCES member (id),
-    CONSTRAINT fk_member_activity_generation FOREIGN KEY (generation_id) REFERENCES generation (id)
+    CONSTRAINT fk_member_action_member     FOREIGN KEY (member_id)     REFERENCES member (id),
+    CONSTRAINT fk_member_action_generation FOREIGN KEY (generation_id) REFERENCES generation (id)
 );
 
 CREATE TABLE external_member
