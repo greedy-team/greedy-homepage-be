@@ -1,7 +1,8 @@
-package com.greedy.homepage.externalmember.domain;
+package com.greedy.homepage.member.domain;
 
 import com.greedy.homepage.common.domain.BaseEntity;
-import com.greedy.homepage.externalmember.domain.enums.ExternalMemberRole;
+import com.greedy.homepage.member.domain.enums.ExternalMemberRole;
+import com.greedy.homepage.member.domain.enums.StackPosition;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,10 +40,15 @@ public class ExternalMember extends BaseEntity {
     @Column(nullable = false)
     private ExternalMemberRole externalMemberRole;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StackPosition stackPosition;
+
     @Builder
-    public ExternalMember(String name, String githubUrl, ExternalMemberRole externalMemberRole) {
+    public ExternalMember(String name, String githubUrl, ExternalMemberRole externalMemberRole, StackPosition stackPosition) {
         this.name = name;
         this.githubUrl = githubUrl;
         this.externalMemberRole = externalMemberRole;
+        this.stackPosition = stackPosition;
     }
 }
