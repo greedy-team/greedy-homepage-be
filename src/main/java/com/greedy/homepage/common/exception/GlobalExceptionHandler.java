@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
 
     private final CommonLogInformation commonLogInformation;
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<APIErrorResponse> handleMokkojiException(final Exception exception) {
+    @ExceptionHandler(HomepageException.class)
+    public ResponseEntity<APIErrorResponse> handleHomepageException(final HomepageException exception) {
 
         final FailMessage failMessage = exception.getFailMessage();
         final int failCode = failMessage.getCode();
@@ -164,8 +164,8 @@ public class GlobalExceptionHandler {
         }
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<APIErrorResponse> handleGeneralException(final Exception exception) {
+    @ExceptionHandler(java.lang.Exception.class)
+    public ResponseEntity<APIErrorResponse> handleGeneralException(final java.lang.Exception exception) {
 
         final FailMessage failMessage = FailMessage.INTERNAL_SERVER_ERROR;
         final int failCode = failMessage.getCode();
