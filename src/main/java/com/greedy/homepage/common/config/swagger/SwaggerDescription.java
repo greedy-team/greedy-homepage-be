@@ -35,6 +35,7 @@ public class SwaggerDescription {
             • BACKEND: 백엔드<br>
             • FRONTEND: 프론트엔드<br>
             • FULL_STACK: 풀스택<br>
+            • DESIGN: 디자인<br>
             </div>
             </details>
 
