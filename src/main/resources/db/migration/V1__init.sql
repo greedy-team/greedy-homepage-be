@@ -33,10 +33,11 @@ CREATE TABLE member_department
 
 CREATE TABLE member_action
 (
-    id            BIGINT      NOT NULL AUTO_INCREMENT,
-    member_id     BIGINT      NOT NULL,
-    member_role   VARCHAR(50) NOT NULL,
-    generation_id BIGINT,
+    id             BIGINT      NOT NULL AUTO_INCREMENT,
+    member_id      BIGINT      NOT NULL,
+    member_role    VARCHAR(50) NOT NULL,
+    stack_position VARCHAR(50) NOT NULL,
+    generation_id  BIGINT,
     created_at    DATETIME,
     updated_at    DATETIME,
     deleted_at    DATETIME,
