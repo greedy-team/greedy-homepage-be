@@ -28,6 +28,8 @@ public enum FailMessage {
     NOT_FOUND(HttpStatus.NOT_FOUND, 40400, "리소스를 찾을 수 없습니다."),
     NOT_FOUND_API(HttpStatus.NOT_FOUND, 40401, "잘못된 API입니다."),
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, 40402, "멤버를 찾을 수 없습니다."),
+    NOT_FOUND_ACTIVITY(HttpStatus.NOT_FOUND, 40403, "활동을 찾을 수 없습니다."),
+    NOT_FOUND_PROJECT(HttpStatus.NOT_FOUND, 40404, "프로젝트를 찾을 수 없습니다."),
 
     //405 METHOD NOT ALLOWED
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, 40500, "잘못된 HTTP 메소드 요청입니다."),
