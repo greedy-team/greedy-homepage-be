@@ -55,17 +55,26 @@ jobs:
     needs: ci
     runs-on: ubuntu-22.04
     steps:
+      - name: application.yml 생성
+        run: |
+          mkdir -p ./config
+          echo "${{ secrets.CICD_APPLICATION_DEV }}" > ./config/application.yml
+
+      - name: application.yml 서버 전송
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEV_SERVER_IP }}
+          username: ${{ secrets.DEV_SERVER_USER }}
+          key: ${{ secrets.DEV_SERVER_KEY }}
+          source: "config/application.yml"
+          target: "~"
+
       - name: 서버에서 배포
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEV_SERVER_IP }}
           username: ${{ secrets.DEV_SERVER_USER }}
           key: ${{ secrets.DEV_SERVER_KEY }}
-          envs: GITHUB_TOKEN,GITHUB_ACTOR
           script: |
-            echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
-            docker compose -f ~/docker-compose-dev.yml pull
-            docker compose -f ~/docker-compose-dev.yml up -d
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_ACTOR: ${{ github.actor }}
+            cd ~
+            ./deploy.sh
