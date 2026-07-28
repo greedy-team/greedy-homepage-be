@@ -27,4 +27,4 @@ gradle-app.setting
 .classpath
 
 ### Application secrets ###
-src/main/resources/application-local.yml
+src/main/resources/application.yml
