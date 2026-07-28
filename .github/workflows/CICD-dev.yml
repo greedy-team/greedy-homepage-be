@@ -61,6 +61,11 @@ jobs:
           host: ${{ secrets.DEV_SERVER_IP }}
           username: ${{ secrets.DEV_SERVER_USER }}
           key: ${{ secrets.DEV_SERVER_KEY }}
+          envs: GITHUB_TOKEN,GITHUB_ACTOR
           script: |
-            cd ~
-            ./deploy.sh
+            echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+            docker compose -f ~/docker-compose-dev.yml pull
+            docker compose -f ~/docker-compose-dev.yml up -d
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
