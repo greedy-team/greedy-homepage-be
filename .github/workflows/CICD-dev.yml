@@ -1,0 +1,66 @@
+name: CI/CD for dev
+
+on:
+  push:
+    branches: [ dev ]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  ci:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Java 21 설정
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+
+      - name: Gradle 빌드
+        run: ./gradlew bootJar -x test --no-daemon
+
+      - name: Buildx 설정
+        uses: docker/setup-buildx-action@v3
+
+      - name: ghcr 로그인
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 이미지 빌드 및 푸시
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile-dev
+          push: true
+          tags: ghcr.io/greedy-team/greedy-homepage-be:latest
+
+      - name: compose 파일 서버 전송
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEV_SERVER_IP }}
+          username: ${{ secrets.DEV_SERVER_USER }}
+          key: ${{ secrets.DEV_SERVER_KEY }}
+          source: "docker-compose-dev.yml"
+          target: "~"
+
+  cd:
+    needs: ci
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 서버에서 배포
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_SERVER_IP }}
+          username: ${{ secrets.DEV_SERVER_USER }}
+          key: ${{ secrets.DEV_SERVER_KEY }}
+          script: |
+            cd ~
+            ./deploy.sh
