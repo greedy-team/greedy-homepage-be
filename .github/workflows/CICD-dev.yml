@@ -58,7 +58,7 @@ jobs:
       - name: application.yml 생성
         run: |
           mkdir -p ./config
-          echo "${{ secrets.CICD_APPLICATION_DEV }}" > ./config/application.yml
+          echo "${{ secrets.CICD_APPLICATION_DEV }}" | base64 -d > ./config/application.yml
 
       - name: application.yml 서버 전송
         uses: appleboy/scp-action@master
