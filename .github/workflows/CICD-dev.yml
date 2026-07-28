@@ -56,9 +56,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: application.yml 생성
+        env:
+          APP_YML: ${{ secrets.CICD_APPLICATION_DEV }}
         run: |
           mkdir -p ./config
-          echo "${{ secrets.CICD_APPLICATION_DEV }}" | base64 -d > ./config/application.yml
+          printf '%s' "$APP_YML" > ./config/application.yml
 
       - name: application.yml 서버 전송
         uses: appleboy/scp-action@master
