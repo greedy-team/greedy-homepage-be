@@ -17,15 +17,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -73,13 +72,11 @@ public class Project extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "project_backend_stack", joinColumns = @JoinColumn(name = "project_id"))
-    @Enumerated(EnumType.STRING)
     @Column(name = "stack", nullable = false)
     private List<String> backendStack = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "project_frontend_stack", joinColumns = @JoinColumn(name = "project_id"))
-    @Enumerated(EnumType.STRING)
     @Column(name = "stack", nullable = false)
     private List<String> frontendStack = new ArrayList<>();
 
