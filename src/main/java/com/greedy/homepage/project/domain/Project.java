@@ -2,8 +2,6 @@ package com.greedy.homepage.project.domain;
 
 import com.greedy.homepage.common.domain.BaseEntity;
 import com.greedy.homepage.generation.domain.Generation;
-import com.greedy.homepage.project.domain.enums.BackendStack;
-import com.greedy.homepage.project.domain.enums.FrontendStack;
 import com.greedy.homepage.project.domain.enums.ProjectType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -19,15 +17,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -75,15 +72,13 @@ public class Project extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "project_backend_stack", joinColumns = @JoinColumn(name = "project_id"))
-    @Enumerated(EnumType.STRING)
     @Column(name = "stack", nullable = false)
-    private List<BackendStack> backendStack = new ArrayList<>();
+    private List<String> backendStack = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "project_frontend_stack", joinColumns = @JoinColumn(name = "project_id"))
-    @Enumerated(EnumType.STRING)
     @Column(name = "stack", nullable = false)
-    private List<FrontendStack> frontendStack = new ArrayList<>();
+    private List<String> frontendStack = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<ProjectImage> images = new ArrayList<>();

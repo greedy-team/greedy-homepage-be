@@ -3,10 +3,7 @@ package com.greedy.homepage.project.dto;
 import com.greedy.homepage.project.domain.Project;
 import com.greedy.homepage.project.domain.ProjectImage;
 import com.greedy.homepage.project.domain.ProjectMember;
-import com.greedy.homepage.project.domain.enums.BackendStack;
-import com.greedy.homepage.project.domain.enums.FrontendStack;
 import com.greedy.homepage.project.domain.enums.ProjectType;
-
 import java.util.List;
 
 public record ProjectDetailResponse(
@@ -21,8 +18,8 @@ public record ProjectDetailResponse(
         String siteUrl,
         String backendGithubUrl,
         String frontendGithubUrl,
-        List<BackendStack> backendStack,
-        List<FrontendStack> frontendStack,
+        List<String> backendStack,
+        List<String> frontendStack,
         List<String> screenshotUrls,
         List<TeamMemberResponse> team
 ) {

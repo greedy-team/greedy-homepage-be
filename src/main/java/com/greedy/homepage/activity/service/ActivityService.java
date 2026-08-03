@@ -30,7 +30,12 @@ public class ActivityService {
 
         Map<Long, List<ActivityImage>> imagesByActivityId = activityImageRepository.findAllByActivityIdIn(activityIds)
                 .stream()
-                .collect(Collectors.groupingBy(image -> image.getActivity().getId()));
+                .collect(Collectors.groupingBy(image -> image.getActivity().getId()))
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> e.getValue().stream().limit(3).toList()
+                ));
 
         return activities.stream()
                 .map(activity -> ActivityListResponse.of(
