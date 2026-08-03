@@ -9,7 +9,7 @@ import java.util.List;
 public record ActivityListResponse(
         Long id,
         String name,
-        String description,
+        String summary,
         LocalDate startDate,
         LocalDate endDate,
         int imageCount,
@@ -19,7 +19,7 @@ public record ActivityListResponse(
         return new ActivityListResponse(
                 activity.getId(),
                 activity.getName(),
-                activity.getDescription(),
+                activity.getSummary(),
                 activity.getStartDate(),
                 activity.getEndDate(),
                 images.size(),
