@@ -2,8 +2,6 @@ package com.greedy.homepage.project.domain;
 
 import com.greedy.homepage.common.domain.BaseEntity;
 import com.greedy.homepage.generation.domain.Generation;
-import com.greedy.homepage.project.domain.enums.BackendStack;
-import com.greedy.homepage.project.domain.enums.FrontendStack;
 import com.greedy.homepage.project.domain.enums.ProjectType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -77,13 +75,13 @@ public class Project extends BaseEntity {
     @CollectionTable(name = "project_backend_stack", joinColumns = @JoinColumn(name = "project_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "stack", nullable = false)
-    private List<BackendStack> backendStack = new ArrayList<>();
+    private List<String> backendStack = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "project_frontend_stack", joinColumns = @JoinColumn(name = "project_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "stack", nullable = false)
-    private List<FrontendStack> frontendStack = new ArrayList<>();
+    private List<String> frontendStack = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<ProjectImage> images = new ArrayList<>();
