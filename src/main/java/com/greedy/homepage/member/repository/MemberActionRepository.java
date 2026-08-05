@@ -10,4 +10,8 @@ public interface MemberActionRepository extends JpaRepository<MemberAction, Long
     List<MemberAction> findAllByMemberId(Long memberId);
 
     List<MemberAction> findAllByMemberIdIn(List<Long> memberIds);
+
+    List<MemberAction> findAllByExternalMemberId(Long externalMemberId);
+
+    List<MemberAction> findAllByExternalMemberIdIn(List<Long> externalMemberIds);
 }

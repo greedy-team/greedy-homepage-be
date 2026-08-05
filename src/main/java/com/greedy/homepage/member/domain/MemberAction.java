@@ -35,8 +35,12 @@ public class MemberAction extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "external_member_id")
+    private ExternalMember externalMember;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -51,8 +55,9 @@ public class MemberAction extends BaseEntity {
     private Generation generation;
 
     @Builder
-    public MemberAction(Member member, MemberRole memberRole, StackPosition stackPosition, Generation generation) {
+    public MemberAction(Member member, ExternalMember externalMember, MemberRole memberRole, StackPosition stackPosition, Generation generation) {
         this.member = member;
+        this.externalMember = externalMember;
         this.memberRole = memberRole;
         this.stackPosition = stackPosition;
         this.generation = generation;

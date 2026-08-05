@@ -44,11 +44,15 @@ public class ExternalMember extends BaseEntity {
     @Column(nullable = false)
     private StackPosition stackPosition;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     @Builder
-    public ExternalMember(String name, String githubUrl, ExternalMemberRole externalMemberRole, StackPosition stackPosition) {
+    public ExternalMember(String name, String githubUrl, ExternalMemberRole externalMemberRole, StackPosition stackPosition, String description) {
         this.name = name;
         this.githubUrl = githubUrl;
         this.externalMemberRole = externalMemberRole;
         this.stackPosition = stackPosition;
+        this.description = description;
     }
 }
