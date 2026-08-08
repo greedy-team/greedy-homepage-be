@@ -1,54 +1,30 @@
 package com.greedy.homepage.member.domain;
 
-import com.greedy.homepage.common.domain.BaseEntity;
 import com.greedy.homepage.member.domain.enums.ExternalMemberRole;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLRestriction("deleted_at IS NULL")
-@SQLDelete(sql = "UPDATE external_member SET deleted_at = NOW() WHERE id = ?")
 @Entity
-@Table(name = "external_member")
-public class ExternalMember extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column
-    private String githubUrl;
+@DiscriminatorValue("EXTERNAL")
+public class ExternalMember extends BaseMember {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private ExternalMemberRole externalMemberRole;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private StackPosition stackPosition;
-
     @Builder
-    public ExternalMember(String name, String githubUrl, ExternalMemberRole externalMemberRole, StackPosition stackPosition) {
-        this.name = name;
-        this.githubUrl = githubUrl;
+    public ExternalMember(String name, String githubUrl, String imageUrl, String description, StackPosition mainStackPosition, ExternalMemberRole externalMemberRole) {
+        super(name, githubUrl, imageUrl, description, mainStackPosition);
         this.externalMemberRole = externalMemberRole;
-        this.stackPosition = stackPosition;
     }
 }

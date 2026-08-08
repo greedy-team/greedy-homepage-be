@@ -1,8 +1,7 @@
 package com.greedy.homepage.project.domain;
 
 import com.greedy.homepage.common.domain.BaseEntity;
-import com.greedy.homepage.member.domain.ExternalMember;
-import com.greedy.homepage.member.domain.Member;
+import com.greedy.homepage.member.domain.BaseMember;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,7 +41,7 @@ public class ProjectMember extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    private BaseMember member;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -54,24 +53,18 @@ public class ProjectMember extends BaseEntity {
     @Column
     private LocalDate endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "external_contributor_id")
-    private ExternalMember externalContributor;
-
     @Builder
     public ProjectMember(
             Project project,
-            Member member,
+            BaseMember member,
             StackPosition stackPosition,
             LocalDate startDate,
-            LocalDate endDate,
-            ExternalMember externalContributor
+            LocalDate endDate
     ) {
         this.project = project;
         this.member = member;
         this.stackPosition = stackPosition;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.externalContributor = externalContributor;
     }
 }

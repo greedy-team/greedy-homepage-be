@@ -1,5 +1,6 @@
 package com.greedy.homepage.member.dto;
 
+import com.greedy.homepage.member.domain.BaseMember;
 import com.greedy.homepage.member.domain.Member;
 import com.greedy.homepage.member.domain.MemberAction;
 import com.greedy.homepage.member.domain.enums.Department;
@@ -13,12 +14,14 @@ public record MemberListResponse(
         List<Department> departments,
         List<MemberActionResponse> memberActions
 ) {
-    public static MemberListResponse of(Member member, List<MemberAction> memberActions) {
+    public static MemberListResponse of(BaseMember member, List<MemberAction> memberActions) {
+        List<Department> departments = member instanceof Member m ? m.getDepartments() : List.of();
+
         return new MemberListResponse(
                 member.getId(),
                 member.getName(),
                 member.getGithubUrl(),
-                member.getDepartments(),
+                departments,
                 memberActions.stream().map(MemberActionResponse::from).toList()
         );
     }
