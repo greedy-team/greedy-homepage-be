@@ -11,6 +11,7 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -75,16 +78,10 @@ public class SwaggerOperationCustomizer implements OperationCustomizer {
     private List<FailMessage> extractFailMessages(HandlerMethod handlerMethod) {
         List<FailMessage> failMessages = new ArrayList<>();
 
-        ApiErrorCodes apiErrorCodes = handlerMethod.getMethodAnnotation(ApiErrorCodes.class);
-        if (apiErrorCodes != null) {
-            for (ApiErrorCode annotation : apiErrorCodes.value()) {
-                failMessages.addAll(Arrays.asList(annotation.value()));
-            }
-            return failMessages;
-        }
+        Method method = handlerMethod.getMethod();
+        Set<ApiErrorCode> annotations = AnnotatedElementUtils.findMergedRepeatableAnnotations(method, ApiErrorCode.class);
 
-        ApiErrorCode[] singleAnnotations = handlerMethod.getMethod().getAnnotationsByType(ApiErrorCode.class);
-        for (ApiErrorCode annotation : singleAnnotations) {
+        for (ApiErrorCode annotation : annotations) {
             failMessages.addAll(Arrays.asList(annotation.value()));
         }
 
