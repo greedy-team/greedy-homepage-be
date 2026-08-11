@@ -1,12 +1,4 @@
 services:
-  redis:
-    container_name: redis
-    image: redis:alpine
-    hostname: redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-
   blue:
     container_name: blue
     image: ghcr.io/greedy-team/greedy-homepage-be:latest
@@ -15,8 +7,6 @@ services:
       - "9091:9090"
     volumes:
       - ~/config:/app/config:ro
-    depends_on:
-      - redis
     restart: unless-stopped
 
   green:
@@ -27,6 +17,4 @@ services:
       - "9092:9090"
     volumes:
       - ~/config:/app/config:ro
-    depends_on:
-      - redis
     restart: unless-stopped
