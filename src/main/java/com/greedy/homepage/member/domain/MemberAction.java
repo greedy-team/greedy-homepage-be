@@ -2,6 +2,7 @@ package com.greedy.homepage.member.domain;
 
 import com.greedy.homepage.common.domain.BaseEntity;
 import com.greedy.homepage.generation.domain.Generation;
+import com.greedy.homepage.member.domain.enums.ExternalMemberRole;
 import com.greedy.homepage.member.domain.enums.MemberRole;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import jakarta.persistence.Column;
@@ -39,8 +40,12 @@ public class MemberAction extends BaseEntity {
     private BaseMember member;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private MemberRole memberRole;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private ExternalMemberRole externalMemberRole;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -51,9 +56,10 @@ public class MemberAction extends BaseEntity {
     private Generation generation;
 
     @Builder
-    public MemberAction(BaseMember member, MemberRole memberRole, StackPosition stackPosition, Generation generation) {
+    public MemberAction(BaseMember member, MemberRole memberRole, ExternalMemberRole externalMemberRole, StackPosition stackPosition, Generation generation) {
         this.member = member;
         this.memberRole = memberRole;
+        this.externalMemberRole = externalMemberRole;
         this.stackPosition = stackPosition;
         this.generation = generation;
     }
