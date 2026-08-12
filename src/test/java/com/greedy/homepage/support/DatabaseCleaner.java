@@ -1,6 +1,7 @@
 package com.greedy.homepage.support;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Inheritance;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Table;
 import jakarta.persistence.metamodel.EntityType;
@@ -21,6 +22,7 @@ public class DatabaseCleaner {
     public void clean() {
         if (tableNames == null) {
             tableNames = entityManager.getMetamodel().getEntities().stream()
+                    .filter(this::hasOwnTable)
                     .map(this::extractTableName)
                     .toList();
         }
@@ -33,6 +35,12 @@ public class DatabaseCleaner {
         }
 
         entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
+    }
+
+    private boolean hasOwnTable(EntityType<?> entityType) {
+        Class<?> javaType = entityType.getJavaType();
+        Class<?> superclass = javaType.getSuperclass();
+        return superclass == null || superclass.getAnnotation(Inheritance.class) == null;
     }
 
     private String extractTableName(EntityType<?> entityType) {
