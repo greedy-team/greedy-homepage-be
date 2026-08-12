@@ -148,7 +148,7 @@ class MemberServiceUnitTest {
             // then
             assertSoftly(softly -> {
                 softly.assertThat(result.name()).isEqualTo("김철수");
-                softly.assertThat(result.departments()).containsExactly("컴퓨터공학과", "AI로봇학과");
+                softly.assertThat(result.departmentKoreanNames()).containsExactly("컴퓨터공학과", "AI로봇학과");
                 softly.assertThat(result.description()).isEqualTo("백엔드 개발자");
                 softly.assertThat(result.memberActions()).hasSize(1);
                 softly.assertThat(result.teamProjects()).hasSize(1);

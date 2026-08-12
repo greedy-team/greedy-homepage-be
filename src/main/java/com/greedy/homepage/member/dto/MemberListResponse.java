@@ -17,7 +17,7 @@ public record MemberListResponse(
         @Schema(description = "GitHub URL", example = "https://github.com/hong", nullable = true)
         String githubUrl,
 
-        @Schema(description = "소속 부서 목록")
+        @Schema(description = "소속 부서 한국어 이름 목록")
         List<String> departmentKoreanNames,
 
         @Schema(description = "멤버 활동 이력")

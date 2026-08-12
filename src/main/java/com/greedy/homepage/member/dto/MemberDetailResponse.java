@@ -19,7 +19,7 @@ public record MemberDetailResponse(
         String githubUrl,
 
         @Schema(description = "소속 부서 한국어 이름 목록")
-        List<String> departments,
+        List<String> departmentKoreanNames,
 
         @Schema(description = "멤버 활동 이력")
         List<MemberActionResponse> memberActions,
