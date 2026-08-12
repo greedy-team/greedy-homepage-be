@@ -7,6 +7,7 @@ import com.greedy.homepage.member.dto.MemberActionResponse;
 import com.greedy.homepage.member.dto.MemberDetailResponse;
 import com.greedy.homepage.member.dto.MemberListResponse;
 import com.greedy.homepage.member.dto.TeamProjectResponse;
+import com.greedy.homepage.member.domain.enums.ExternalMemberRole;
 import com.greedy.homepage.member.domain.enums.MemberRole;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import com.greedy.homepage.member.service.MemberService;
@@ -46,7 +47,7 @@ class MemberControllerTest {
         void success_withExistingMembers() throws Exception {
             // given
             MemberActionResponse action = new MemberActionResponse(
-                    MemberRole.MAINTAINER, StackPosition.BACKEND, 1
+                    MemberRole.MAINTAINER, null, StackPosition.BACKEND, 1
             );
             MemberListResponse memberResponse = new MemberListResponse(
                     1L, "김철수", "https://github.com/kimcs", List.of("컴퓨터공학과"), List.of(action)
@@ -87,7 +88,7 @@ class MemberControllerTest {
         void success_withExistingMemberId() throws Exception {
             // given
             MemberActionResponse action = new MemberActionResponse(
-                    MemberRole.STUDY_MEMBER, StackPosition.BACKEND, 1
+                    MemberRole.STUDY_MEMBER, null, StackPosition.BACKEND, 1
             );
             TeamProjectResponse teamProject = new TeamProjectResponse(
                     1L, "그리디 홈페이지", StackPosition.BACKEND
