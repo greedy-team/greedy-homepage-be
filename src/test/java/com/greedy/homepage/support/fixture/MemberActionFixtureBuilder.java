@@ -1,20 +1,23 @@
 package com.greedy.homepage.support.fixture;
 
 import com.greedy.homepage.generation.domain.Generation;
+import com.greedy.homepage.member.domain.BaseMember;
 import com.greedy.homepage.member.domain.Member;
 import com.greedy.homepage.member.domain.MemberAction;
+import com.greedy.homepage.member.domain.enums.ExternalMemberRole;
 import com.greedy.homepage.member.domain.enums.MemberRole;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class MemberActionFixtureBuilder {
 
-    private final Member member;
+    private final BaseMember member;
     private MemberRole memberRole = MemberRole.STUDY_MEMBER;
+    private ExternalMemberRole externalMemberRole;
     private StackPosition stackPosition = StackPosition.BACKEND;
     private Generation generation;
 
-    private MemberActionFixtureBuilder(Member member) {
+    private MemberActionFixtureBuilder(BaseMember member) {
         this.member = member;
     }
 
@@ -22,8 +25,20 @@ public class MemberActionFixtureBuilder {
         return new MemberActionFixtureBuilder(member);
     }
 
+    public static MemberActionFixtureBuilder withExternalMember(BaseMember member) {
+        MemberActionFixtureBuilder builder = new MemberActionFixtureBuilder(member);
+        builder.memberRole = null;
+        builder.externalMemberRole = ExternalMemberRole.REVIEWER;
+        return builder;
+    }
+
     public MemberActionFixtureBuilder memberRole(MemberRole memberRole) {
         this.memberRole = memberRole;
+        return this;
+    }
+
+    public MemberActionFixtureBuilder externalMemberRole(ExternalMemberRole externalMemberRole) {
+        this.externalMemberRole = externalMemberRole;
         return this;
     }
 
@@ -41,6 +56,7 @@ public class MemberActionFixtureBuilder {
         return MemberAction.builder()
                 .member(member)
                 .memberRole(memberRole)
+                .externalMemberRole(externalMemberRole)
                 .stackPosition(stackPosition)
                 .generation(generation)
                 .build();
