@@ -49,7 +49,7 @@ class MemberControllerTest {
                     MemberRole.MAINTAINER, StackPosition.BACKEND, 1
             );
             MemberListResponse memberResponse = new MemberListResponse(
-                    1L, "김철수", "https://github.com/kimcs", List.of(), List.of(action)
+                    1L, "김철수", "https://github.com/kimcs", List.of("컴퓨터공학과"), List.of(action)
             );
 
             given(memberService.findAll()).willReturn(List.of(memberResponse));
@@ -60,6 +60,7 @@ class MemberControllerTest {
                     .andExpect(jsonPath("$.items").isArray())
                     .andExpect(jsonPath("$.items.length()").value(1))
                     .andExpect(jsonPath("$.items[0].name").value("김철수"))
+                    .andExpect(jsonPath("$.items[0].departmentKoreanNames[0]").value("컴퓨터공학과"))
                     .andExpect(jsonPath("$.items[0].memberActions.length()").value(1));
         }
 
@@ -92,7 +93,7 @@ class MemberControllerTest {
                     1L, "그리디 홈페이지", StackPosition.BACKEND
             );
             MemberDetailResponse detailResponse = new MemberDetailResponse(
-                    1L, "김철수", "https://github.com/kimcs", List.of(),
+                    1L, "김철수", "https://github.com/kimcs", List.of("컴퓨터공학과", "AI로봇학과"),
                     List.of(action), "백엔드 개발자", List.of(teamProject)
             );
 
@@ -102,6 +103,8 @@ class MemberControllerTest {
             mockMvc.perform(get("/members/{id}", 1L))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.name").value("김철수"))
+                    .andExpect(jsonPath("$.departments[0]").value("컴퓨터공학과"))
+                    .andExpect(jsonPath("$.departments[1]").value("AI로봇학과"))
                     .andExpect(jsonPath("$.description").value("백엔드 개발자"))
                     .andExpect(jsonPath("$.memberActions.length()").value(1))
                     .andExpect(jsonPath("$.teamProjects.length()").value(1))

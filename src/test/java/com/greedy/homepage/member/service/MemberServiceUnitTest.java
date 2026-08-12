@@ -4,11 +4,12 @@ import com.greedy.homepage.common.exception.HomepageException;
 import com.greedy.homepage.generation.domain.Generation;
 import com.greedy.homepage.member.domain.Member;
 import com.greedy.homepage.member.domain.MemberAction;
+import com.greedy.homepage.member.domain.enums.Department;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import com.greedy.homepage.member.dto.MemberDetailResponse;
 import com.greedy.homepage.member.dto.MemberListResponse;
+import com.greedy.homepage.member.repository.BaseMemberRepository;
 import com.greedy.homepage.member.repository.MemberActionRepository;
-import com.greedy.homepage.member.repository.MemberRepository;
 import com.greedy.homepage.project.domain.Project;
 import com.greedy.homepage.project.domain.ProjectMember;
 import com.greedy.homepage.project.repository.ProjectMemberRepository;
@@ -40,7 +41,7 @@ class MemberServiceUnitTest {
     private MemberService memberService;
 
     @Mock
-    private MemberRepository memberRepository;
+    private BaseMemberRepository baseMemberRepository;
 
     @Mock
     private MemberActionRepository memberActionRepository;
@@ -58,10 +59,12 @@ class MemberServiceUnitTest {
             // given
             Member member1 = MemberFixtureBuilder.builder()
                     .name("김철수")
+                    .departments(List.of(Department.COMPUTER_SCIENCES_AND_ENGINEERING))
                     .buildWithId(1L);
             Member member2 = MemberFixtureBuilder.builder()
                     .name("이영희")
                     .mainStackPosition(StackPosition.FRONTEND)
+                    .departments(List.of(Department.BUSINESS_ADMINISTRATION))
                     .buildWithId(2L);
 
             Generation generation = GenerationFixtureBuilder.builder()
@@ -72,7 +75,7 @@ class MemberServiceUnitTest {
                     .generation(generation)
                     .buildWithId(1L);
 
-            given(memberRepository.findAll()).willReturn(List.of(member1, member2));
+            given(baseMemberRepository.findAll()).willReturn(List.of(member1, member2));
             given(memberActionRepository.findAllByMemberIdIn(List.of(1L, 2L)))
                     .willReturn(List.of(action1));
 
@@ -83,8 +86,10 @@ class MemberServiceUnitTest {
             assertSoftly(softly -> {
                 softly.assertThat(result).hasSize(2);
                 softly.assertThat(result.get(0).name()).isEqualTo("김철수");
+                softly.assertThat(result.get(0).departmentKoreanNames()).containsExactly("컴퓨터공학과");
                 softly.assertThat(result.get(0).memberActions()).hasSize(1);
                 softly.assertThat(result.get(1).name()).isEqualTo("이영희");
+                softly.assertThat(result.get(1).departmentKoreanNames()).containsExactly("경영학부");
                 softly.assertThat(result.get(1).memberActions()).isEmpty();
             });
         }
@@ -93,7 +98,7 @@ class MemberServiceUnitTest {
         @DisplayName("멤버가 없으면 빈 목록을 반환한다")
         void success_emptyList() {
             // given
-            given(memberRepository.findAll()).willReturn(List.of());
+            given(baseMemberRepository.findAll()).willReturn(List.of());
 
             // when
             List<MemberListResponse> result = memberService.findAll();
@@ -114,6 +119,7 @@ class MemberServiceUnitTest {
             Member member = MemberFixtureBuilder.builder()
                     .name("김철수")
                     .description("백엔드 개발자")
+                    .departments(List.of(Department.COMPUTER_SCIENCES_AND_ENGINEERING, Department.ARTIFICIAL_INTELLIGENCE_AND_ROBOTICS))
                     .buildWithId(1L);
 
             Generation generation = GenerationFixtureBuilder.builder()
@@ -132,7 +138,7 @@ class MemberServiceUnitTest {
                     .withProjectAndMember(project, member)
                     .buildWithId(1L);
 
-            given(memberRepository.findById(1L)).willReturn(Optional.of(member));
+            given(baseMemberRepository.findById(1L)).willReturn(Optional.of(member));
             given(memberActionRepository.findAllByMemberId(1L)).willReturn(List.of(action));
             given(projectMemberRepository.findAllByMemberId(1L)).willReturn(List.of(projectMember));
 
@@ -142,6 +148,7 @@ class MemberServiceUnitTest {
             // then
             assertSoftly(softly -> {
                 softly.assertThat(result.name()).isEqualTo("김철수");
+                softly.assertThat(result.departments()).containsExactly("컴퓨터공학과", "AI로봇학과");
                 softly.assertThat(result.description()).isEqualTo("백엔드 개발자");
                 softly.assertThat(result.memberActions()).hasSize(1);
                 softly.assertThat(result.teamProjects()).hasSize(1);
@@ -153,7 +160,7 @@ class MemberServiceUnitTest {
         @DisplayName("존재하지 않는 멤버 ID로 조회하면 예외가 발생한다")
         void error_notFoundMember() {
             // given
-            given(memberRepository.findById(999L)).willReturn(Optional.empty());
+            given(baseMemberRepository.findById(999L)).willReturn(Optional.empty());
 
             // when & then
             assertThatThrownBy(() -> memberService.findById(999L))

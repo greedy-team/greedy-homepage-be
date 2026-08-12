@@ -5,7 +5,6 @@ import com.greedy.homepage.member.domain.Member;
 import com.greedy.homepage.member.domain.MemberAction;
 import com.greedy.homepage.member.domain.enums.Department;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.util.List;
 
 public record MemberListResponse(
@@ -19,7 +18,7 @@ public record MemberListResponse(
         String githubUrl,
 
         @Schema(description = "소속 부서 목록")
-        List<Department> departments,
+        List<String> departmentKoreanNames,
 
         @Schema(description = "멤버 활동 이력")
         List<MemberActionResponse> memberActions
@@ -31,7 +30,7 @@ public record MemberListResponse(
                 member.getId(),
                 member.getName(),
                 member.getGithubUrl(),
-                departments,
+                departments.stream().map(Department::getKoreanName).toList(),
                 memberActions.stream().map(MemberActionResponse::from).toList()
         );
     }

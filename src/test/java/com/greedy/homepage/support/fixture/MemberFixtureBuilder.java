@@ -1,8 +1,11 @@
 package com.greedy.homepage.support.fixture;
 
 import com.greedy.homepage.member.domain.Member;
+import com.greedy.homepage.member.domain.enums.Department;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.List;
 
 public class MemberFixtureBuilder {
 
@@ -11,6 +14,7 @@ public class MemberFixtureBuilder {
     private String imageUrl = "https://example.com/image.png";
     private String description = "백엔드 개발자입니다.";
     private StackPosition mainStackPosition = StackPosition.BACKEND;
+    private List<Department> departments = List.of();
 
     public static MemberFixtureBuilder builder() {
         return new MemberFixtureBuilder();
@@ -41,14 +45,21 @@ public class MemberFixtureBuilder {
         return this;
     }
 
+    public MemberFixtureBuilder departments(List<Department> departments) {
+        this.departments = departments;
+        return this;
+    }
+
     public Member build() {
-        return Member.builder()
+        Member member = Member.builder()
                 .name(name)
                 .githubUrl(githubUrl)
                 .imageUrl(imageUrl)
                 .description(description)
                 .mainStackPosition(mainStackPosition)
                 .build();
+        ReflectionTestUtils.setField(member, "departments", departments);
+        return member;
     }
 
     public Member buildWithId(Long id) {
