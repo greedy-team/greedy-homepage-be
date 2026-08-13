@@ -43,7 +43,6 @@ public class MemberAction extends BaseEntity {
     private MemberRole memberRole;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private StackPosition stackPosition;
 
     @ManyToOne(fetch = FetchType.LAZY)
