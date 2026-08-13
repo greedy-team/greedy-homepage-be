@@ -16,7 +16,7 @@ import java.util.Map;
 @Tag(name = "members", description = "멤버 API")
 public interface MemberControllerDocs {
 
-    @Operation(summary = "전체 멤버 목록")
+    @Operation(summary = "전체 멤버 목록", description = "최신 기수 내림차순으로 정렬하여 반환합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "멤버 목록 조회 성공")
     })
