@@ -43,7 +43,7 @@ jobs:
           context: .
           file: ./Dockerfile-prod
           push: true
-          tags: ghcr.io/greedy-team/greedy-homepage-be:latest
+          tags: ghcr.io/greedy-team/greedy-homepage-be:prod
 
       - name: compose 파일 서버 전송
         uses: appleboy/scp-action@master
