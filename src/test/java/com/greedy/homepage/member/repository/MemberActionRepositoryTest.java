@@ -62,7 +62,7 @@ class MemberActionRepositoryTest extends ServiceIntegrationTest {
             // then
             assertSoftly(softly -> {
                 softly.assertThat(result).hasSize(1);
-                softly.assertThat(result.get(0).getMember().getId()).isEqualTo(member1.getId());
+                softly.assertThat(result.getFirst().getMember().getId()).isEqualTo(member1.getId());
             });
         }
 
@@ -74,6 +74,30 @@ class MemberActionRepositoryTest extends ServiceIntegrationTest {
 
             // then
             assertThat(result).isEmpty();
+        }
+    }
+
+    @Nested
+    @DisplayName("stackPosition이 null인 활동을 저장할 때")
+    class SaveWithNullStackPosition {
+
+        @Test
+        @DisplayName("stackPosition이 null이어도 정상적으로 저장된다")
+        void success_withNullStackPosition() {
+            // given
+            MemberAction memberAction = MemberActionFixtureBuilder.withMember(member1)
+                    .stackPosition(null)
+                    .generation(generation)
+                    .build();
+
+            // when
+            MemberAction saved = memberActionRepository.save(memberAction);
+
+            // then
+            assertSoftly(softly -> {
+                softly.assertThat(saved.getId()).isNotNull();
+                softly.assertThat(saved.getStackPosition()).isNull();
+            });
         }
     }
 
