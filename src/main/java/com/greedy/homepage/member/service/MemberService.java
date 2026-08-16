@@ -2,12 +2,12 @@ package com.greedy.homepage.member.service;
 
 import com.greedy.homepage.common.exception.FailMessage;
 import com.greedy.homepage.common.exception.HomepageException;
-import com.greedy.homepage.member.domain.Member;
+import com.greedy.homepage.member.domain.BaseMember;
 import com.greedy.homepage.member.domain.MemberAction;
 import com.greedy.homepage.member.dto.MemberDetailResponse;
 import com.greedy.homepage.member.dto.MemberListResponse;
+import com.greedy.homepage.member.repository.BaseMemberRepository;
 import com.greedy.homepage.member.repository.MemberActionRepository;
-import com.greedy.homepage.member.repository.MemberRepository;
 import com.greedy.homepage.project.domain.ProjectMember;
 import com.greedy.homepage.project.repository.ProjectMemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final BaseMemberRepository baseMemberRepository;
     private final MemberActionRepository memberActionRepository;
     private final ProjectMemberRepository projectMemberRepository;
 
     public List<MemberListResponse> findAll() {
-        List<Member> members = memberRepository.findAll();
-        List<Long> memberIds = members.stream().map(Member::getId).toList();
+        List<BaseMember> members = baseMemberRepository.findAllOrderByLatestGenerationDesc();
+        List<Long> memberIds = members.stream().map(BaseMember::getId).toList();
 
         Map<Long, List<MemberAction>> actionsByMemberId = memberActionRepository.findAllByMemberIdIn(memberIds)
                 .stream()
@@ -44,7 +44,7 @@ public class MemberService {
     }
 
     public MemberDetailResponse findById(Long id) {
-        Member member = memberRepository.findById(id)
+        BaseMember member = baseMemberRepository.findById(id)
                 .orElseThrow(() -> new HomepageException(FailMessage.NOT_FOUND_MEMBER));
 
         List<MemberAction> memberActions = memberActionRepository.findAllByMemberId(id);

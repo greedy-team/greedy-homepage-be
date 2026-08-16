@@ -1,5 +1,10 @@
 package com.greedy.homepage.common.config.swagger;
 
+import com.greedy.homepage.common.exception.APIErrorResponse;
+import io.swagger.v3.core.converter.AnnotatedType;
+import io.swagger.v3.core.converter.ModelConverters;
+import io.swagger.v3.core.converter.ResolvedSchema;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.customizers.OpenApiCustomizer;
@@ -33,10 +38,16 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
 
+        ResolvedSchema resolvedSchema = ModelConverters.getInstance()
+                .resolveAsResolvedSchema(new AnnotatedType(APIErrorResponse.class));
+
         return new OpenAPI()
                 .info(new io.swagger.v3.oas.models.info.Info()
                         .title("greedy-homepage API 명세서")
                         .description(swaggerDescription.getDescription())
+                )
+                .components(new Components()
+                        .addSchemas("APIErrorResponse", resolvedSchema.schema)
                 );
     }
 }

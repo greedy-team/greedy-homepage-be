@@ -1,0 +1,20 @@
+services:
+  blue:
+    container_name: blue
+    image: ghcr.io/greedy-team/greedy-homepage-be:prod
+    ports:
+      - "8081:8080"
+      - "9091:9090"
+    volumes:
+      - ~/config:/app/config:ro
+    restart: unless-stopped
+
+  green:
+    container_name: green
+    image: ghcr.io/greedy-team/greedy-homepage-be:prod
+    ports:
+      - "8082:8080"
+      - "9092:9090"
+    volumes:
+      - ~/config:/app/config:ro
+    restart: unless-stopped

@@ -31,6 +31,9 @@ public class Activity extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private String summary;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -41,8 +44,9 @@ public class Activity extends BaseEntity {
     private LocalDate endDate;
 
     @Builder
-    public Activity(String name, String description, LocalDate startDate, LocalDate endDate) {
+    public Activity(String name, String summary, String description, LocalDate startDate, LocalDate endDate) {
         this.name = name;
+        this.summary = summary;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;

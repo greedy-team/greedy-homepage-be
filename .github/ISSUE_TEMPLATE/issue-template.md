@@ -1,3 +1,11 @@
+---
+name: 이슈 템플릿
+about: 작업 내용을 설명해주세요
+title: ''
+labels: ''
+assignees: ''
+---
+
 ## 📝 Summary
 
 <!-- 왜 이 작업이 필요한지 -->

@@ -1,5 +1,72 @@
 package com.greedy.homepage.member.domain.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Department {
-    //Todo : 학과 리스트 채우기
+    AEROSPACE_ENGINEERING("우주항공공학전공"),
+    AEROSPACE_SYSTEM_ENGINEERING("항공시스템공학전공"),
+    AI_CONVERGENCE_ELECTRONIC_ENGINEERING("AI융합전자공학과"),
+    ARCHITECTURAL_ENGINEERING("건축공학과"),
+    ARCHITECTURE("건축학과"),
+    ARTIFICIAL_INTELLIGENCE_AND_DATA_SCIENCE("인공지능데이터사이언스학과"),
+    ARTIFICIAL_INTELLIGENCE_AND_INFORMATION_TECHNOLOGY("전자정보통신공학과"),
+    ARTIFICIAL_INTELLIGENCE_AND_ROBOTICS("AI로봇학과"),
+    BIORESOURCES_ENGINEERING("바이오산업자원공학전공"),
+    BUSINESS_ADMINISTRATION("경영학부"),
+    CHEMISTRY("화학과"),
+    CHINESE_TRADE_AND_COMMERCE("중국통상학전공"),
+    CIVIL_AND_ENVIRONMENTAL_ENGINEERING("건설환경공학과"),
+    COMICS_AND_ANIMATION_TECHNOLOGY("만화애니메이션텍전공"),
+    COMPUTER_AND_INFORMATION_SECURITY("정보보호학과"),
+    COMPUTER_SCIENCES_AND_ENGINEERING("컴퓨터공학과"),
+    CULINARY_SERVICE_MANAGEMENT("조리서비스경영학과"),
+    CYBER_DEFENSE("사이버국방학과"),
+    DANCE("무용과"),
+    DEFENSE_AI_AND_ROBOTICS_CONVERGENCE_ENGINEERING("국방AI로봇융합공학과"),
+    DEFENSE_AND_AI_SYSTEM_ENGINEERING("국방AI융합시스템공학과"),
+    DESIGN_INNOVATION("디자인이노베이션전공"),
+    ECONOMICS("경제학과"),
+    EDUCATION("교육학과"),
+    ENERGY_RESOURCES_AND_GEOSYSTEMS_ENGINEERING("에너지자원공학과"),
+    ENGLISH_DATA_CONVERGENCE("영어데이터융합전공"),
+    ENVIRONMENT_AND_ENERGY("환경융합공학과"),
+    FASHION_DESIGN("패션디자인학과"),
+    FILM_ART("영화예술학과"),
+    FOOD_SCIENCE_AND_BIOTECHNOLOGY("식품생명공학전공"),
+    FOOD_SERVICE_MANAGEMENT("외식경영학전공"),
+    FRANCHISE_MANAGEMENT_AND_HOTEL_RESTAURANT_AND_TOURISM("호텔외식관광프랜차이즈경영학과"),
+    HISTORY("역사학과"),
+    HOTEL_AND_TOURISM_MANAGEMENT("호텔관광경영학전공"),
+    HOTEL_RESTAURANT_BUSINESS("호텔외식비즈니스학과"),
+    INTEGRATIVE_BIOLOGICAL_SCIENCES_AND_INDUSTRY("스마트생명산업융합학과"),
+    INTEGRATIVE_BIOSCIENCE_AND_BIOTECHNOLOGY("바이오융합공학전공"),
+    INTELLIGENT_DRONE_CONVERGENCE("지능형드론융합전공"),
+    INTELLIGENT_INTERNET_OF_THINGS("지능정보융합학과"),
+    INTERNATIONAL_AFFAIRS("국제협력전공"),
+    INTERNATIONAL_JAPANESE_STUDIES("국제일본학전공"),
+    INTERNATIONAL_TRADE_AND_COMMERCE("국제통상전공"),
+    KOREAN_LANGUAGE_AND_CULTURE("한국언어문화전공"),
+    KOREAN_LANGUAGE_AND_LITERATURE("국어국문학과"),
+    LAW("법학과"),
+    MATHEMATICS_AND_STATISTICS("수학통계학과"),
+    MECHANICAL_ENGINEERING("기계공학과"),
+    MEDIA_AND_COMMUNICATION("미디어커뮤니케이션학과"),
+    MUSIC("음악과"),
+    NANO_TECHNOLOGY_AND_ADVANCED_MATERIALS_ENGINEERING("나노신소재공학과"),
+    PAINTING("회화과"),
+    PHYSICAL_EDUCATION("체육학과"),
+    PHYSICS_AND_ASTRONOMY("물리천문학과"),
+    PUBLIC_ADMINISTRATION("행정학과"),
+    QUANTUM_AND_NUCLEAR_ENGINEERING("양자원자력공학과"),
+    QUANTUM_INFORMATION_SCIENCE_AND_ENGINEERING("양자지능정보학과"),
+    SEMICONDUCTOR_SYSTEMS_ENGINEERING("반도체시스템공학과"),
+    SOFTWARE("콘텐츠소프트웨어학과"),
+    ;
+
+    private final String koreanName;
+
+    Department(String koreanName) {
+        this.koreanName = koreanName;
+    }
 }
