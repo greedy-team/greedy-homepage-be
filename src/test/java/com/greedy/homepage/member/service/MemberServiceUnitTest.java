@@ -75,7 +75,7 @@ class MemberServiceUnitTest {
                     .generation(generation)
                     .buildWithId(1L);
 
-            given(baseMemberRepository.findAllOrderByLatestGenerationDesc()).willReturn(List.of(member1, member2));
+            given(baseMemberRepository.findAll()).willReturn(List.of(member1, member2));
             given(memberActionRepository.findAllByMemberIdIn(List.of(1L, 2L)))
                     .willReturn(List.of(action1));
 
@@ -95,58 +95,10 @@ class MemberServiceUnitTest {
         }
 
         @Test
-        @DisplayName("멤버를 최신 기수 내림차순으로 정렬하여 반환한다")
-        void success_sortedByLatestGeneration() {
-            // given
-            Member member1 = MemberFixtureBuilder.builder()
-                    .name("김철수")
-                    .departments(List.of(Department.COMPUTER_SCIENCES_AND_ENGINEERING))
-                    .buildWithId(1L);
-            Member member2 = MemberFixtureBuilder.builder()
-                    .name("이영희")
-                    .departments(List.of(Department.BUSINESS_ADMINISTRATION))
-                    .buildWithId(2L);
-            Member member3 = MemberFixtureBuilder.builder()
-                    .name("박민수")
-                    .departments(List.of(Department.COMPUTER_SCIENCES_AND_ENGINEERING))
-                    .buildWithId(3L);
-
-            Generation generation1 = GenerationFixtureBuilder.builder()
-                    .number(1)
-                    .buildWithId(1L);
-            Generation generation3 = GenerationFixtureBuilder.builder()
-                    .number(3)
-                    .buildWithId(3L);
-
-            MemberAction action1 = MemberActionFixtureBuilder.withMember(member1)
-                    .generation(generation1)
-                    .buildWithId(1L);
-            MemberAction action2 = MemberActionFixtureBuilder.withMember(member2)
-                    .generation(generation3)
-                    .buildWithId(2L);
-
-            given(baseMemberRepository.findAllOrderByLatestGenerationDesc())
-                    .willReturn(List.of(member2, member1, member3));
-            given(memberActionRepository.findAllByMemberIdIn(List.of(2L, 1L, 3L)))
-                    .willReturn(List.of(action1, action2));
-
-            // when
-            List<MemberListResponse> result = memberService.findAll();
-
-            // then
-            assertSoftly(softly -> {
-                softly.assertThat(result).hasSize(3);
-                softly.assertThat(result.get(0).name()).isEqualTo("이영희");
-                softly.assertThat(result.get(1).name()).isEqualTo("김철수");
-                softly.assertThat(result.get(2).name()).isEqualTo("박민수");
-            });
-        }
-
-        @Test
         @DisplayName("멤버가 없으면 빈 목록을 반환한다")
         void success_emptyList() {
             // given
-            given(baseMemberRepository.findAllOrderByLatestGenerationDesc()).willReturn(List.of());
+            given(baseMemberRepository.findAll()).willReturn(List.of());
 
             // when
             List<MemberListResponse> result = memberService.findAll();

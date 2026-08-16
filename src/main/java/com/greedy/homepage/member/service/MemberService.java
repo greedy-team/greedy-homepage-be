@@ -28,7 +28,7 @@ public class MemberService {
     private final ProjectMemberRepository projectMemberRepository;
 
     public List<MemberListResponse> findAll() {
-        List<BaseMember> members = baseMemberRepository.findAllOrderByLatestGenerationDesc();
+        List<BaseMember> members = baseMemberRepository.findAll();
         List<Long> memberIds = members.stream().map(BaseMember::getId).toList();
 
         Map<Long, List<MemberAction>> actionsByMemberId = memberActionRepository.findAllByMemberIdIn(memberIds)
