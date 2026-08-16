@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/greedy-team/greedy-homepage-be:latest
+    image: ghcr.io/greedy-team/greedy-homepage-be:dev
     container_name: greedy-homepage-dev
     ports:
       - "8080:8080"
