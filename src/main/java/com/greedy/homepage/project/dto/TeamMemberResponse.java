@@ -11,6 +11,9 @@ public record TeamMemberResponse(
         @Schema(description = "멤버명", example = "홍길동")
         String name,
 
+        @Schema(description = "GitHub URL", example = "https://github.com/hong", nullable = true)
+        String githubUrl,
+
         @Schema(description = "기술 스택 포지션", example = "BACKEND")
         StackPosition stackPosition
 ) {
@@ -18,6 +21,7 @@ public record TeamMemberResponse(
         return new TeamMemberResponse(
                 projectMember.getMember().getId(),
                 projectMember.getMember().getName(),
+                projectMember.getMember().getGithubUrl(),
                 projectMember.getStackPosition()
         );
     }
