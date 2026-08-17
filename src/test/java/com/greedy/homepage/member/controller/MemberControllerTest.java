@@ -3,11 +3,10 @@ package com.greedy.homepage.member.controller;
 import com.greedy.homepage.common.exception.FailMessage;
 import com.greedy.homepage.common.exception.HomepageException;
 import com.greedy.homepage.common.log.CommonLogInformation;
-import com.greedy.homepage.member.dto.MemberActionResponse;
+import com.greedy.homepage.member.dto.InternalMemberActionResponse;
 import com.greedy.homepage.member.dto.MemberDetailResponse;
 import com.greedy.homepage.member.dto.MemberListResponse;
 import com.greedy.homepage.member.dto.TeamProjectResponse;
-import com.greedy.homepage.member.domain.enums.ExternalMemberRole;
 import com.greedy.homepage.member.domain.enums.MemberRole;
 import com.greedy.homepage.member.domain.enums.StackPosition;
 import com.greedy.homepage.member.service.MemberService;
@@ -46,8 +45,8 @@ class MemberControllerTest {
         @DisplayName("멤버가 존재하면 200 상태코드와 목록을 반환한다")
         void success_withExistingMembers() throws Exception {
             // given
-            MemberActionResponse action = new MemberActionResponse(
-                    MemberRole.MAINTAINER, null, StackPosition.BACKEND, 1
+            InternalMemberActionResponse action = new InternalMemberActionResponse(
+                    MemberRole.MAINTAINER, StackPosition.BACKEND, 1
             );
             MemberListResponse memberResponse = new MemberListResponse(
                     1L, "김철수", "https://github.com/kimcs", List.of("컴퓨터공학과"), List.of(action)
@@ -87,8 +86,8 @@ class MemberControllerTest {
         @DisplayName("존재하는 멤버 ID로 조회하면 200 상태코드와 상세 정보를 반환한다")
         void success_withExistingMemberId() throws Exception {
             // given
-            MemberActionResponse action = new MemberActionResponse(
-                    MemberRole.STUDY_MEMBER, null, StackPosition.BACKEND, 1
+            InternalMemberActionResponse action = new InternalMemberActionResponse(
+                    MemberRole.STUDY_MEMBER, StackPosition.BACKEND, 1
             );
             TeamProjectResponse teamProject = new TeamProjectResponse(
                     1L, "그리디 홈페이지", StackPosition.BACKEND

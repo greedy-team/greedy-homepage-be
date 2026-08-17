@@ -50,6 +50,7 @@ public class MemberAction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StackPosition stackPosition;
 
+    @Getter(AccessLevel.NONE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "generation_id")
     private Generation generation;
@@ -61,5 +62,12 @@ public class MemberAction extends BaseEntity {
         this.externalMemberRole = externalMemberRole;
         this.stackPosition = stackPosition;
         this.generation = generation;
+    }
+
+    public Integer getGenerationNumber() {
+        if (generation == null) {
+            return null;
+        }
+        return generation.getNumber();
     }
 }
