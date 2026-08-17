@@ -83,7 +83,7 @@ class ProjectControllerTest {
         void success_withExistingProjectId() throws Exception {
             // given
             TeamMemberResponse teamMember = new TeamMemberResponse(
-                    1L, "김철수", StackPosition.BACKEND
+                    1L, "김철수", "https://github.com/hong", StackPosition.BACKEND
             );
             ProjectDetailResponse detailResponse = new ProjectDetailResponse(
                     1L, "그리디 홈페이지", "홈페이지 프로젝트",
